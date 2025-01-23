@@ -18,7 +18,7 @@ from sklearn.metrics import roc_auc_score
 
 def load_args():
     parser = argparse.ArgumentParser(
-        description='Structure-Aware Transformer',
+        description='Memory-guided Graph Transformer for Node-level Anomaly Detection',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--seed', type=int, default=0,
                         help='random seed')
@@ -74,13 +74,13 @@ if __name__ == '__main__':
     data_name = dataset
     args = buildArgs(args, dataset)
     graph = load_data(data_name)
-    # 节点属性归一化
+    # normalize node features
     node_features = graph.x
     node_features_min = node_features.min()
     node_features_max = node_features.max()
     node_features = (node_features - node_features_min) / node_features_max
     graph.x = node_features
-    # 计算节点邻居列表以及邻居数量
+    # calculate node neighbor count
     in_nodes = graph.edge_index[0, :]
     out_nodes = graph.edge_index[1, :]
 
